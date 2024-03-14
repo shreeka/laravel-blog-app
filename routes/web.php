@@ -32,7 +32,7 @@ Route::get('/home',function (){
 Route::get('/register',[RegisterController::class,'create'])->middleware('guest');
 Route::post('/register', [RegisterController::class, 'store'])->middleware('guest');
 
-Route::get('/new-post',[PostController::class,'create'])->middleware('auth');
-Route::post('/new-post',[PostController::class, 'store'])->middleware('auth');
+Route::get('/new-post',[PostController::class,'create']);
+Route::post('/new-post',[PostController::class, 'store']);
 
-Route::get('/show-post',[PostController::class,'show'])->middleware('auth');
+Route::get('/show-post',[PostController::class,'show']);
