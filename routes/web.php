@@ -27,7 +27,7 @@ Route::get('/logout', [LoginController::class, 'logOutUser'])->middleware('auth'
 
 Route::get('/home',function (){
    return view('home');
-})->middleware('auth');
+});
 
 Route::get('/register',[RegisterController::class,'create'])->middleware('guest');
 Route::post('/register', [RegisterController::class, 'store'])->middleware('guest');
@@ -35,4 +35,4 @@ Route::post('/register', [RegisterController::class, 'store'])->middleware('gues
 Route::get('/new-post',[PostController::class,'create']);
 Route::post('/new-post',[PostController::class, 'store']);
 
-Route::get('/show-post',[PostController::class,'show']);
+Route::get('/show-post/{slug}',[PostController::class,'show'])->name('posts.show');

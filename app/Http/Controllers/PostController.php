@@ -25,17 +25,18 @@ class PostController extends Controller
     public function store(StorePostRequest $request)
     {
         $current_user = Auth::user();
+        $slug = Str::slug($request->title);
         $data[] = [
             'user_id' => Auth::id(),
             'title' => $request->title,
             'image' => $request->image ?? 'NULL',
             'content' => $request->post_content,
             'author' => $current_user->username,
-            'slug' => Str::slug($request->title),
+            'slug' => $slug,
         ];
 
         $this->postRepository->insertNewPost($data);
-        return redirect('/show-post');
+        return redirect()->route('posts.show',['slug'=> $slug]);
 
     }
 
