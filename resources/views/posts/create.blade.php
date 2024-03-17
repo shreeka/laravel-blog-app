@@ -9,9 +9,9 @@
                     <label for="title">Title</label>
                     <input type="text" class="form-control" id="title" name="title" placeholder="Enter title">
                 </div>
-                <div class="form-group">
-                    <label for="image">Image link</label>
-                    <input type="text" class="form-control" id="image" name="image" placeholder="Enter image link">
+                <div class="form-group mt-2">
+                    <label for="image">Header image URL</label>
+                    <input type="text" class="form-control" id="image" name="image" placeholder="Enter image URL">
                 </div>
                 <div class="form-group mt-3">
                     <input id="x" type="hidden" name="post_content">

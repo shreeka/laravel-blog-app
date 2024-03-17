@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePostRequest;
 use App\Models\Post;
 use App\Repositories\PostRepositoryInterface;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -26,6 +27,13 @@ class PostController extends Controller
     {
         $current_user = Auth::user();
         $slug = Str::slug($request->title);
+
+        //Check if slug already exists
+        $slug_exists = Post::where('slug', $slug)->exists();
+        if($slug_exists) {
+            $slug = $slug.'-'.uniqid();
+        }
+
         $data[] = [
             'user_id' => Auth::id(),
             'title' => $request->title,
@@ -40,9 +48,28 @@ class PostController extends Controller
 
     }
 
-    public function show(Post $post)
+    public function show(String $slug)
     {
-        return view('posts.show');
+        $post = $this->postRepository->getPostBySlug($slug);
+        if ($post) {
+            $postedDate = new DateTime($post->created_at);
+            $updatedDate = new DateTime($post->updated_at);
+            $postedDate = $postedDate->format('M d, Y');
+            $updatedDate = $updatedDate->format('M d, Y');
+
+            $postData = [
+                'postedDate' => $postedDate,
+                'updatedDate' => $updatedDate
+            ];
+
+            return view('posts.show')->with([
+                'post' => $post,
+                'postData' => $postData
+                ]);
+        }else {
+            return view('error.notfound');
+        }
+
     }
 
 
