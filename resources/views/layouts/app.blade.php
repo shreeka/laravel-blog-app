@@ -9,7 +9,11 @@
 
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
+    <!-- Custom CSS-->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet" />
+    <!-- Trix editor files  https://github.com/basecamp/trix/tree/main -->
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.8/dist/trix.css">
+    <script type="text/javascript" src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
 </head>
 <body>
 <!-- Responsive navbar-->

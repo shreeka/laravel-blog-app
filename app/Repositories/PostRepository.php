@@ -15,7 +15,7 @@ class PostRepository implements PostRepositoryInterface
             $post->user_id = $post_data[0]['user_id'];
             $post->title = $post_data[0]['title'];
             $post->image = $post_data[0]['image'];
-            $post->content = $post_data[0]['image'];
+            $post->content = $post_data[0]['content'];
             $post->author = $post_data[0]['author'];
             $post->slug = $post_data[0]['slug'];
 

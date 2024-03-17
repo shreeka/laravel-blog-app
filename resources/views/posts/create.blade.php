@@ -13,9 +13,9 @@
                     <label for="image">Image link</label>
                     <input type="text" class="form-control" id="image" name="image" placeholder="Enter image link">
                 </div>
-                <div class="form-group">
-                    <label for="content">Content</label>
-                    <textarea class="form-control" id="content" name="post_content" placeholder="Write your content.."></textarea>
+                <div class="form-group mt-3">
+                    <input id="x" type="hidden" name="post_content">
+                    <trix-editor input="x" class="trix-content" id = "content-editor"></trix-editor>
                 </div>
 
                 @if ($errors->any())
