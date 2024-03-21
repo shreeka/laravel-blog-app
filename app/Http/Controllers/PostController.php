@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\PostContentHelper;
 use App\Http\Requests\StorePostRequest;
 use App\Models\Post;
 use App\Repositories\PostRepositoryInterface;
@@ -52,14 +53,9 @@ class PostController extends Controller
     {
         $post = $this->postRepository->getPostBySlug($slug);
         if ($post) {
-            $postedDate = new DateTime($post->created_at);
-            $updatedDate = new DateTime($post->updated_at);
-            $postedDate = $postedDate->format('M d, Y');
-            $updatedDate = $updatedDate->format('M d, Y');
-
             $postData = [
-                'postedDate' => $postedDate,
-                'updatedDate' => $updatedDate
+                'postedDate' => PostContentHelper::formatPostDate($post->created_at),
+                'updatedDate' => PostContentHelper::formatPostDate($post->updated_at)
             ];
 
             return view('posts.show')->with([
