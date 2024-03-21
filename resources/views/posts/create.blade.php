@@ -3,7 +3,7 @@
 @section('content')
     <div class="row justify-content-center">
         <div class="col-sm-8">
-            <form method="post" action="/new-post">
+            <form method="post" action= {{ route('posts.store') }}>
                 @csrf
                 <div class="form-group">
                     <label for="title">Title</label>

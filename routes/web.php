@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
@@ -20,19 +21,27 @@ Route::get('/', function () {
     return view('welcome');
 })->middleware('guest')->name('welcome');
 
-Route::get('/login', [LoginController::class, 'create'])->middleware('guest');
-Route::post('/login', [LoginController::class,'loginUser'])->middleware('guest');
 
-Route::get('/logout', [LoginController::class, 'logOutUser'])->middleware('auth');
 
-Route::get('/home',function (){
-   return view('home');
+Route::controller(LoginController::class)->group(function (){
+    Route::get('/login','create')->middleware('guest');
+    Route::post('/login','loginUser')->middleware('guest');
+
+    Route::get('/logout','logOutUser')->middleware('auth');
 });
 
-Route::get('/register',[RegisterController::class,'create'])->middleware('guest');
-Route::post('/register', [RegisterController::class, 'store'])->middleware('guest');
+Route::get('/home', [HomeController::class,'index']);
 
-Route::get('/new-post',[PostController::class,'create']);
-Route::post('/new-post',[PostController::class, 'store']);
 
-Route::get('/show-post/{slug}',[PostController::class,'show'])->name('posts.show');
+Route::prefix('register')->group(function () {
+    Route::get('',[RegisterController::class,'create'])->middleware('guest');
+    Route::post('', [RegisterController::class, 'store'])->middleware('guest');
+});
+
+
+Route::prefix('posts')->group(function (){
+    Route::get('/create',[PostController::class,'create'])->name('posts.create');
+    Route::post('/store',[PostController::class, 'store'])->name('posts.store');
+
+    Route::get('/{slug}',[PostController::class,'show'])->name('posts.show');
+});
