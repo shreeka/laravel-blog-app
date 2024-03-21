@@ -4,28 +4,27 @@
     <div class="row justify-content-center">
         <div class="col-sm-8">
             <div class="row">
-                <div class="col-lg-8">
-                    <!-- Post content-->
-                    <article>
-                        <!-- Post header-->
-                        <header class="mb-4">
-                            <!-- Post title-->
-                            <h1 class="fw-bolder mb-1">{{ $post->title }}</h1>
-                            <!-- Post meta content-->
-                            <div class="text-muted fst-italic mb-2">Posted on {{ $postData['postedDate'] }} by {{ $post->author }}</div>
+                <!-- Post content-->
+                <article>
+                    <!-- Post header-->
+                    <header class="mb-4">
+                        <!-- Post title-->
+                        <h1 class="fw-bolder mb-1">{{ $post->title }}</h1>
+                        <!-- Post meta content-->
+                        <div class="text-muted fst-italic mb-2">Posted on {{ $postData['postedDate'] }} by {{ $post->author }}</div>
 
-                        </header>
-                        <!-- Preview image figure-->
-                        @if($post->image != 'NULL')
-                            <figure class="mb-4"><img class="img-fluid rounded" src= {{ $post->image }} alt="..." /></figure>
-                        @endif
-                        <!-- Post content-->
-                        <div class="mb-5 trix-content">
-                          {!! htmlspecialchars_decode($post->content) !!}
-                        </div>
-                    </article>
+                    </header>
+                    <!-- Preview image figure-->
+                    @if($post->image != 'NULL')
+                        <figure class="mb-4"><img class="img-fluid rounded" src= {{ $post->image }} alt="..." /></figure>
+                    @endif
+                    <!-- Post content-->
+                    <div class="mb-5 trix-content">
+                      {!! htmlspecialchars_decode($post->content) !!}
+                    </div>
+                </article>
                     <!-- Comments section-->
-                    <section class="mb-5">
+                <section class="mb-5">
                         <div class="card bg-light">
                             <div class="card-body">
                                 <!-- Comment form-->
@@ -66,21 +65,6 @@
                             </div>
                         </div>
                     </section>
-                </div>
-                <!-- Side widgets-->
-                <div class="col-lg-4">
-                    <!-- Search widget-->
-                    <div class="card mb-4">
-                        <div class="card-header">Search</div>
-                        <div class="card-body">
-                            <div class="input-group">
-                                <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
-                                <button class="btn btn-primary" id="button-search" type="button">Go!</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 @endsection
