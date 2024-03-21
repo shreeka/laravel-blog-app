@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Post;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class PostRepository implements PostRepositoryInterface
@@ -32,5 +33,11 @@ class PostRepository implements PostRepositoryInterface
         $post = Post::where('slug',$slug)->first();
         return $post;
 
+    }
+
+    public function getLatestPostsWithPagination(int $pagination)
+    {
+        $posts = DB::table('posts')->orderBy('created_at','desc')->paginate($pagination);
+        return $posts;
     }
 }
