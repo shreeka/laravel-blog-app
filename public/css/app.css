@@ -1,4 +1,5 @@
 
+/* To set footer fixed at the bottom of the screen */
 body{
     min-height: 100vh;
     display: flex;
@@ -8,10 +9,12 @@ footer{
     margin-top: auto;
 }
 
+/* Fix height of text editor */
 #content-editor {
     height: 500px;
 }
 
+/* trix-content class from trix editor */
 .trix-content {
     line-height: 1.5;
     overflow-wrap: break-word;
@@ -133,4 +136,11 @@ footer{
             }
         }
     }
+}
+
+/* Fix image size of cards in home page */
+.card-img-top {
+    width: 100%;
+    height: 39vh;
+    object-fit: cover;
 }
