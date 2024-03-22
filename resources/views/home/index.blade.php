@@ -23,10 +23,10 @@
                                 </div>
                                 <h2 class="card-title h4">{{ $post->title }}</h2>
                                 <p class="card-text">
-                                    {{ \App\Helpers\PostContentHelper::limitPostText($post->content,100) }}
+                                    {{ \App\Helpers\PostContentHelper::limitPostText($post->content,150) }}
                                 </p>
 
-                                <a class="btn btn-primary" href="#!">Read more →</a>
+                                <a class="btn btn-primary" href="/posts/{{ $post->slug }}">Read more →</a>
                             </div>
                         </div>
                     </div>
