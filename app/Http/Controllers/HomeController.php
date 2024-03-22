@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\PostRepositoryInterface;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {

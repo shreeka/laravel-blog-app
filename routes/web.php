@@ -18,24 +18,24 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-})->middleware('guest')->name('welcome');
+    return redirect('/home');
+});
 
 
 
 Route::controller(LoginController::class)->group(function (){
-    Route::get('/login','create')->middleware('guest');
-    Route::post('/login','loginUser')->middleware('guest');
+    Route::get('/login','create');
+    Route::post('/login','loginUser');
 
-    Route::get('/logout','logOutUser')->middleware('auth');
+    Route::get('/logout','logOutUser');
 });
 
 Route::get('/home', [HomeController::class,'index']);
 
 
 Route::prefix('register')->group(function () {
-    Route::get('',[RegisterController::class,'create'])->middleware('guest');
-    Route::post('', [RegisterController::class, 'store'])->middleware('guest');
+    Route::get('',[RegisterController::class,'create']);
+    Route::post('', [RegisterController::class, 'store']);
 });
 
 
