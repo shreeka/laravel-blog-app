@@ -22,7 +22,7 @@
                     </header>
                     <!-- Preview image figure-->
                     @if($post->image != 'NULL')
-                        <figure class="mb-4">
+                        <figure class="mb-4 mt-5">
                             <img class="img-fluid rounded mx-auto d-block" src= {{ $post->image }} alt="..."
                             style="width: 75%"/>
                         </figure>
