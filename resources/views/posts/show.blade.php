@@ -11,12 +11,21 @@
                         <!-- Post title-->
                         <h1 class="fw-bolder mb-1">{{ $post->title }}</h1>
                         <!-- Post meta content-->
-                        <div class="text-muted fst-italic mb-2">Posted on {{ $postData['postedDate'] }} by {{ $post->author }}</div>
-
+                        <div>
+                            <div class="text-muted fst-italic mb-2 float-start">Posted on {{ $postData['postedDate'] }} by {{ $post->author }}</div>
+                            @if(\Illuminate\Support\Facades\Auth::user()->role == 1)
+                            <div class="float-end">
+                                <a href="{{ route('posts.edit', ['slug' => $post->slug]) }}"><i class="bi bi-pencil-square bi-lg"></i> Edit</a>
+                            </div>
+                            @endif
+                        </div>
                     </header>
                     <!-- Preview image figure-->
                     @if($post->image != 'NULL')
-                        <figure class="mb-4"><img class="img-fluid rounded" src= {{ $post->image }} alt="..." /></figure>
+                        <figure class="mb-4">
+                            <img class="img-fluid rounded mx-auto d-block" src= {{ $post->image }} alt="..."
+                            style="width: 75%"/>
+                        </figure>
                     @endif
                     <!-- Post content-->
                     <div class="mb-5 trix-content">

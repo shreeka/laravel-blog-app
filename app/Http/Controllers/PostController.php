@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\PostContentHelper;
 use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
 use App\Repositories\PostRepositoryInterface;
 use DateTime;
@@ -28,14 +29,9 @@ class PostController extends Controller
     {
         $current_user = Auth::user();
         $slug = Str::slug($request->title);
+        $slug = $this->getUniqueSlug($slug);
 
-        //Check if slug already exists
-        $slug_exists = Post::where('slug', $slug)->exists();
-        if($slug_exists) {
-            $slug = $slug.'-'.uniqid();
-        }
-
-        $data[] = [
+        $data = [
             'user_id' => Auth::id(),
             'title' => $request->title,
             'image' => $request->image ?? 'NULL',
@@ -67,6 +63,53 @@ class PostController extends Controller
         }
 
     }
+
+    public function edit(String $slug)
+    {
+        $this->authorize('edit', Post::class);
+        $post = $this->postRepository->getPostBySlug($slug);
+        return view('posts.edit')->with(['post'=> $post]);
+
+    }
+
+    public function update(UpdatePostRequest $request)
+    {
+        $current_slug = $request->slug;
+        $updated_slug = Str::slug($request->title);
+
+        //If post title has been updated, slug needs to be updated
+        if($current_slug != $updated_slug) {
+            $slug = $this->getUniqueSlug($updated_slug);
+        }else {
+            $slug = $current_slug;
+        }
+
+        $data = [
+            'title' => $request->title,
+            'image' => $request->image ?? 'NULL',
+            'content' => $request->post_content,
+            'current_slug' => $current_slug,
+            'slug' => $slug,
+        ];
+        $this->postRepository->updatePost($data);
+        return redirect()->route('posts.show',['slug' => $slug]);
+
+    }
+
+    /**
+     * @param string $slug
+     * @return string
+     */
+    private function getUniqueSlug(string $slug): string
+    {
+        $slug_exists = $this->postRepository->checkPostWithSlugExists($slug);
+        if ($slug_exists) {
+            $slug = $slug . '-' . uniqid();
+        }
+        return $slug;
+    }
+
+
 
 
 }

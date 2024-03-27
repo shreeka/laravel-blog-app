@@ -11,4 +11,9 @@ class PostPolicy
         return $user->role === 1; //give access to admin only
     }
 
+    public function edit(User $user)
+    {
+        return $user->role === 1; //give access to admin only
+    }
+
 }

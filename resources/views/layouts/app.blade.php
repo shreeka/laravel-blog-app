@@ -9,6 +9,8 @@
 
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
+    <!-- Bootstrap icons-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <!-- Custom CSS-->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet" />
     <!-- Trix editor files  https://github.com/basecamp/trix/tree/main -->

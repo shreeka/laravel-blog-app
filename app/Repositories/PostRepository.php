@@ -13,12 +13,12 @@ class PostRepository implements PostRepositoryInterface
     {
         try {
             $post = new Post();
-            $post->user_id = $post_data[0]['user_id'];
-            $post->title = $post_data[0]['title'];
-            $post->image = $post_data[0]['image'];
-            $post->content = $post_data[0]['content'];
-            $post->author = $post_data[0]['author'];
-            $post->slug = $post_data[0]['slug'];
+            $post->user_id = $post_data['user_id'];
+            $post->title = $post_data['title'];
+            $post->image = $post_data['image'];
+            $post->content = $post_data['content'];
+            $post->author = $post_data['author'];
+            $post->slug = $post_data['slug'];
 
             $post->save();
         }
@@ -28,7 +28,7 @@ class PostRepository implements PostRepositoryInterface
 
     }
 
-    public function getPostBySlug(string $slug): Post
+    public function getPostBySlug(string $slug): ?Post
     {
         $post = Post::where('slug',$slug)->first();
         return $post;
@@ -39,5 +39,33 @@ class PostRepository implements PostRepositoryInterface
     {
         $posts = DB::table('posts')->orderBy('created_at','desc')->paginate($pagination);
         return $posts;
+    }
+
+    public function updatePost(array $postData): void
+    {
+       $post = $this->getPostBySlug($postData['current_slug']);
+       if ($post){
+           try {
+               $post->title = $postData['title'];
+               $post->image = $postData['image'];
+               $post->content = $postData['content'];
+               $post->slug = $postData['slug'];
+
+               $post->save();
+
+           }
+           catch (\Throwable $exception) {
+               Log::error('Error updating post:', [$exception->getMessage()]);
+           }
+       }
+    }
+
+    /**
+     * @param string $slug
+     * @return bool
+     */
+    public function checkPostWithSlugExists(string $slug): bool
+    {
+        return Post::where('slug', $slug)->exists();
     }
 }
