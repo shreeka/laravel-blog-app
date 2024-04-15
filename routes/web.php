@@ -42,8 +42,8 @@ Route::prefix('register')->group(function () {
 Route::prefix('posts')->group(function (){
     Route::get('/create',[PostController::class,'create'])->name('posts.create');
     Route::post('/store',[PostController::class, 'store'])->name('posts.store');
-    Route::get('/{slug}',[PostController::class,'show'])->name('posts.show');
-    Route::get('/{slug}/edit',[PostController::class,'edit'])->name('posts.edit');
+    Route::get('/{post:slug}',[PostController::class,'show'])->name('posts.show');
+    Route::get('/{post:slug}/edit',[PostController::class,'edit'])->name('posts.edit');
     Route::post('/update',[PostController::class, 'update'])->name('posts.update');
     Route::post('/destroy/{post}',[PostController::class, 'destroy'])->name('posts.destroy');
 });

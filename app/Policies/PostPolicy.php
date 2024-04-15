@@ -16,4 +16,9 @@ class PostPolicy
         return $user->role === 1; //give access to admin only
     }
 
+    public function destroy(User $user)
+    {
+        return $user->role === 1; //give access to admin only
+    }
+
 }

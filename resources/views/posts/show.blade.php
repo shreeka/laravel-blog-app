@@ -23,7 +23,7 @@
                                 by {{ $post->author }}</div>
                             @if(!empty(Auth::user()->role) && Auth::user()->role == 1)
                                 <div class="float-end">
-                                    <a href="{{ route('posts.edit', ['slug' => $post->slug]) }}">
+                                    <a href="{{ route('posts.edit', $post->slug) }}">
                                         <i class="bi bi-pencil-square bi-lg"></i> Edit</a>
                                     <a class="link-danger p-3" href="#deleteModal"
                                        data-bs-toggle="modal" data-bs-target="#deleteModal">

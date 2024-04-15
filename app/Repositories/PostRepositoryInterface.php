@@ -5,8 +5,6 @@ use App\Models\Post;
 
 interface PostRepositoryInterface
 {
-    public function insertNewPost(array $post_data): void;
-    public function getPostBySlug(string $slug): ?Post;
     public function getLatestPostsWithPagination(int $pagination);
     public function updatePost(array $postData): void;
     public function checkPostWithSlugExists(string $slug): bool;

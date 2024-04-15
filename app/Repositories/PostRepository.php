@@ -9,32 +9,6 @@ use Illuminate\Support\Facades\Log;
 final class PostRepository implements PostRepositoryInterface
 {
 
-    public function insertNewPost(array $post_data): void
-    {
-        try {
-            $post = new Post();
-            $post->user_id = $post_data['user_id'];
-            $post->title = $post_data['title'];
-            $post->image = $post_data['image'];
-            $post->content = $post_data['content'];
-            $post->author = $post_data['author'];
-            $post->slug = $post_data['slug'];
-
-            $post->save();
-        }
-        catch (\Throwable $exception) {
-            Log::error('Error inserting new post: '. $exception->getMessage());
-        }
-
-    }
-
-    public function getPostBySlug(string $slug): ?Post
-    {
-        $post = Post::where('slug',$slug)->first();
-        return $post;
-
-    }
-
     public function getLatestPostsWithPagination(int $pagination)
     {
         $posts = DB::table('posts')->orderBy('created_at','desc')->paginate($pagination);

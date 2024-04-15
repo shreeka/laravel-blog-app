@@ -40,14 +40,14 @@ class PostController extends Controller
             'slug' => $slug,
         ];
 
-        $this->postRepository->insertNewPost($data);
-        return redirect()->route('posts.show',['slug'=> $slug]);
+        $post = Post::create($data);
+
+        return redirect()->route('posts.show',$post);
 
     }
 
-    public function show(String $slug)
+    public function show(Post $post)
     {
-        $post = $this->postRepository->getPostBySlug($slug);
         if ($post) {
             $postData = [
                 'postedDate' => PostContentHelper::formatPostDate($post->created_at),
@@ -63,10 +63,9 @@ class PostController extends Controller
 
     }
 
-    public function edit(String $slug)
+    public function edit(Post $post)
     {
         $this->authorize('edit', Post::class);
-        $post = $this->postRepository->getPostBySlug($slug);
         return view('posts.edit')->with(['post'=> $post]);
 
     }
@@ -97,6 +96,7 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
+        $this->authorize('destroy',Post::class);
         if($post->delete()) {
             return redirect('/home')->with('success','Post deleted sucessfully.');
         }else {
