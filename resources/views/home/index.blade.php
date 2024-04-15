@@ -4,6 +4,12 @@
     <div class="row">
         <!-- Blog entries-->
         <div>
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
             <!-- Nested row for non-featured blog posts-->
             <div class="row">
                 @foreach($posts as $post)

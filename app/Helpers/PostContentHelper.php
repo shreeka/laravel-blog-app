@@ -18,7 +18,7 @@ class PostContentHelper
     public static function limitPostText(string $content, int $limit)
     {
         $strippedContent = preg_replace('/&nbsp;/', ' ', strip_tags($content));
-        if (strlen($strippedContent) > 100) {
+        if (strlen($strippedContent) > $limit) {
             return substr($strippedContent,0,$limit)."...";
         } else {
             return $strippedContent;

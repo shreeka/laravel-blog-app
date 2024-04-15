@@ -53,7 +53,6 @@ class PostController extends Controller
                 'postedDate' => PostContentHelper::formatPostDate($post->created_at),
                 'updatedDate' => PostContentHelper::formatPostDate($post->updated_at)
             ];
-
             return view('posts.show')->with([
                 'post' => $post,
                 'postData' => $postData
@@ -93,6 +92,16 @@ class PostController extends Controller
         ];
         $this->postRepository->updatePost($data);
         return redirect()->route('posts.show',['slug' => $slug]);
+
+    }
+
+    public function destroy(Post $post)
+    {
+        if($post->delete()) {
+            return redirect('/home')->with('success','Post deleted sucessfully.');
+        }else {
+            return redirect()->back()->with('error','Failed to delete post.');
+        }
 
     }
 
